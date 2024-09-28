@@ -1,0 +1,28 @@
+.title{
+    justify-content: center;
+}
+
+.add-task-button{
+    background-color: black;
+    color: white;
+    padding: 9px;
+    justify-content: center;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.column {
+    border: 3px solid black;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+#backlog{
+    margin-left: 20px;
+}
+
+#done{
+    margin-right: 20px;
+}
+
+
