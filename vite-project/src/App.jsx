@@ -3,6 +3,7 @@ import Header from './Header';
 import Column from './Column';
 import './header.css';
 import './column.css';
+import EditTaskModal from './EditTaskModal';
 
 function App() {
   return (
