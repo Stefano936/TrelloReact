@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
-import './editTaskModal.css';
+import React, { useState, useEffect } from 'react';
 
-function EditTaskModal({ isOpen, onClose, onSave, task }) {
-    const [title, setTitle] = useState(task.title);
-    const [description, setDescription] = useState(task.description);
-    const [priority, setPriority] = useState(task.priority);
-    const [assignedUser, setAssignedUser] = useState(task.assignedUser);
-    const [dueDate, setDueDate] = useState(task.dueDate);
+const EditTaskModal = ({ isOpen, onClose, onSave, task }) => {
+    const [updatedTask, setUpdatedTask] = useState(task);
+
+    useEffect(() => {
+        setUpdatedTask(task);
+    }, [task]);
 
     if (!isOpen) return null;
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUpdatedTask({ ...updatedTask, [name]: value });
+    };
+
     const handleSave = () => {
-        onSave({ title, description, priority, assignedUser, dueDate });
-        onClose();
+        onSave(updatedTask);
     };
 
     return (
@@ -21,29 +24,29 @@ function EditTaskModal({ isOpen, onClose, onSave, task }) {
                 <h2>Edit Task</h2>
                 <label>
                     Title:
-                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+                    <input type="text" name="title" value={updatedTask.title} onChange={handleChange} />
                 </label>
                 <label>
                     Description:
-                    <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
-                </label>
-                <label>
-                    Priority:
-                    <input type="text" value={priority} onChange={(e) => setPriority(e.target.value)} />
+                    <input type="text" name="description" value={updatedTask.description} onChange={handleChange} />
                 </label>
                 <label>
                     Assigned User:
-                    <input type="text" value={assignedUser} onChange={(e) => setAssignedUser(e.target.value)} />
+                    <input type="text" name="assignedUser" value={updatedTask.assignedUser} onChange={handleChange} />
+                </label>
+                <label>
+                    Priority:
+                    <input type="text" name="priority" value={updatedTask.priority} onChange={handleChange} />
                 </label>
                 <label>
                     Due Date:
-                    <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} />
+                    <input type="date" name="dueDate" value={updatedTask.dueDate} onChange={handleChange} />
                 </label>
                 <button onClick={handleSave}>Save</button>
                 <button onClick={onClose}>Close</button>
             </div>
         </div>
     );
-}
+};
 
 export default EditTaskModal;
